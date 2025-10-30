@@ -7,26 +7,28 @@
 
 import { defineChain } from "thirdweb";
 
-// Define Lisk Sepolia chain
-export const liskSepolia = defineChain({
-  id: 4202,
-  name: "Lisk Sepolia Testnet",
+const THIRDWEB_API_KEY = process.env.THIRDWEB_CLIENT_ID;
+
+// Define Hedera Testnet chain
+export const hederaTestnet = defineChain({
+  id: 296,
+  name: "Hedera Testnet",
   nativeCurrency: {
-    name: "Sepolia Ether",
-    symbol: "ETH",
+    name: "Hedera Testnet",
+    symbol: "HBar",
     decimals: 18,
   },
-  rpc: "https://rpc.sepolia-api.lisk.com",
+  rpc: `https://296.rpc.thirdweb.com/${THIRDWEB_API_KEY}`,
   blockExplorers: [
     {
-      name: "Lisk Sepolia Explorer",
-      url: "https://sepolia-blockscout.lisk.com",
+      name: "Hash Scan",
+      url: "https://hashscan.io/testnet",
     },
   ],
   testnet: true,
 });
 
-export const SUPPORTED_CHAIN_ID = 84532; // 4202
+export const SUPPORTED_CHAIN_ID = 296;
 
 export const isSupportedChain = (
   chainId: number | undefined

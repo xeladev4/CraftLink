@@ -2,7 +2,7 @@
 
 **CraftLink** is a decentralized marketplace that connects artisans and informal workers with global job opportunities and secure payments. Designed for borderless collaboration, CraftLink combines elegant UX with blockchain-based guarantees for trust, transparency, and ownership.
 
-Built using **Next.js**, **Tailwind CSS**, and **smart contracts on Base**, CraftLink supports gasless transactions and on-chain portfolios, giving artisans full control of their digital reputation and income.
+Built using **Next.js**, **Tailwind CSS**, and **smart contracts on Hedera**, CraftLink supports gasless transactions and on-chain portfolios, giving artisans full control of their digital reputation and income.
 
 ---
 
@@ -23,7 +23,7 @@ Built using **Next.js**, **Tailwind CSS**, and **smart contracts on Base**, Craf
 | Layer           | Tech                                              |
 | --------------- | ------------------------------------------------- |
 | Frontend        | Next.js, React, Tailwind CSS, Zustand             |
-| Smart Contracts | Solidity, Base Sepolia                            |
+| Smart Contracts | Solidity, Hedera Testnet                            |
 | Storage         | IPFS (portfolio media), MongoDB (gigs & profiles), Cloudinary |
 | Auth & Wallet   | Thirdweb, Viem, Ethers.js                      |
 | Gasless Infra   | Custom Relayer                                    |
@@ -58,7 +58,7 @@ Built using **Next.js**, **Tailwind CSS**, and **smart contracts on Base**, Craf
 
 ## Deployment
 
-* **Smart Contracts:** Deployed on **Base Sepolia**
+* **Smart Contracts:** Deployed on **Hedera Testnet**
 * **Frontend:** Hosted on **Vercel**
 * **Storage:** IPFS (decentralized media) + MongoDB (off-chain data)
 

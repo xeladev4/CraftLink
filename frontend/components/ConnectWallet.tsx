@@ -5,9 +5,7 @@ import { useEffect, useState } from "react";
 import { ConnectButton, darkTheme, useActiveAccount } from "thirdweb/react";
 import type { Account } from "thirdweb/wallets";
 import { useChainSwitch } from "@/hooks/useChainSwitch";
-import { baseSepolia } from "thirdweb/chains";
-// import { liskSepolia } from "@/constants/chain";
-import { getBasename } from "@superdevfavour/basename";
+import { hederaTestnet } from "@/constants/chain";
 
 interface ConnectWalletProps {
   onConnect?: () => void;
@@ -20,9 +18,7 @@ const ConnectWallet = ({ onConnect, label = "Connect Wallet" }: ConnectWalletPro
   const [prevAccount, setPrevAccount] = useState<Account | undefined>(
     undefined
   );
-  const [basename, setBasename] = useState<string | null>(null);
-  const [isLoadingBasename, setIsLoadingBasename] = useState(false);
-  const { isOnCorrectChain, switchToBaseSepolia } = useChainSwitch();
+  const { isOnCorrectChain, switchToHederaTestnet } = useChainSwitch();
 
   const origin =
     typeof window !== "undefined"
@@ -40,29 +36,6 @@ const ConnectWallet = ({ onConnect, label = "Connect Wallet" }: ConnectWalletPro
     setMounted(true);
   }, []);
 
-  // Fetch Basename for connected wallet
-  useEffect(() => {
-    const fetchBasename = async () => {
-      if (!account?.address) {
-        setBasename(null);
-        return;
-      }
-
-      try {
-        setIsLoadingBasename(true);
-        const name = await getBasename(account.address);
-        setBasename(name || null);
-      } catch (error) {
-        console.log("No Basename found or error fetching:", error);
-        setBasename(null);
-      } finally {
-        setIsLoadingBasename(false);
-      }
-    };
-
-    fetchBasename();
-  }, [account?.address]);
-
   useEffect(() => {
     if (account && !prevAccount && onConnect) {
       onConnect();
@@ -75,26 +48,12 @@ const ConnectWallet = ({ onConnect, label = "Connect Wallet" }: ConnectWalletPro
     if (account && !isOnCorrectChain) {
       // Small delay to ensure wallet is fully connected
       const timer = setTimeout(() => {
-        switchToBaseSepolia();
+        switchToHederaTestnet();
       }, 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [account, isOnCorrectChain, switchToBaseSepolia]);
-
-  // Format display name: Basename or shortened address
-  const getDisplayName = () => {
-    if (isLoadingBasename && account) {
-      return "Loading...";
-    }
-    if (basename) {
-      return basename;
-    }
-    if (account?.address) {
-      return `${account.address.slice(0, 6)}...${account.address.slice(-4)}`;
-    }
-    return label;
-  };
+  }, [account, isOnCorrectChain, switchToHederaTestnet]);
 
   if (!mounted) return null;
 
@@ -105,12 +64,12 @@ const ConnectWallet = ({ onConnect, label = "Connect Wallet" }: ConnectWalletPro
           client={thirdwebClient}
           appMetadata={metadata}
           connectButton={{
-            label: account ? getDisplayName() : label,
+            label: label,
           }}
           wallets={wallets}
           connectModal={{ size: "compact" }}
-          chain={baseSepolia}
-          chains={[baseSepolia]}
+          chain={hederaTestnet}
+          chains={[hederaTestnet]}
           theme={darkTheme({
             colors: {
               primaryButtonBg: "#FFD700",
@@ -123,12 +82,12 @@ const ConnectWallet = ({ onConnect, label = "Connect Wallet" }: ConnectWalletPro
           client={thirdwebClient}
           appMetadata={metadata}
           connectButton={{
-            label: account ? getDisplayName() : label,
+            label: label,
           }}
           wallets={wallets}
           connectModal={{ size: "compact" }}
-          chain={baseSepolia}
-          chains={[baseSepolia]}
+          chain={hederaTestnet}
+          chains={[hederaTestnet]}
           theme={darkTheme({
             colors: {
               primaryButtonBg: "#FFD700",
