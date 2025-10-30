@@ -10,4 +10,4 @@ testnet = "${HEDERA_RPC_URL}"
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 
 # DEPLOY COMMAND
-# forge script script/HederaToken.s.sol:HederaTokenScript --rpc-url testnet --broadcast
+# forge script script/HederaToken.s.sol:HederaTokenScript --rpc-url testnet --broadcast --slow

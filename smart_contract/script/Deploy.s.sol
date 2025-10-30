@@ -56,7 +56,7 @@ contract DeployScript is Script {
 }
 
 // DEPLOY COMMAND
-// forge script script/Deploy.s.sol:DeployScript --rpc-url testnet --broadcast
+// forge script script/Deploy.s.sol:DeployScript --rpc-url testnet --broadcast --slow
 
 // VERIFY COMMAND
 // forge verify-contract $CONTRACT_ADDRESS src/HederaToken.sol:HederaToken \
