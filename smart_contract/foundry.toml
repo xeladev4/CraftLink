@@ -4,13 +4,10 @@ out = "out"
 libs = ["lib"]
 fs_permissions = [{ access = "read-write", path = "./"}]
 
-# [rpc_endpoints]
-# lisk-sepolia = "${LISK_SEPOLIA_RPC_URL}"
-
-[etherscan]
-sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=84532&apikey=${ETHERSCAN_API_KEY}", chain = 84532 }
+[rpc_endpoints]
+testnet = "${HEDERA_RPC_URL}"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 
 # DEPLOY COMMAND
-# forge script script/DeployV2.s.sol:DeployV2Script --rpc-url $LISK_SEPOLIA_RPC_URL --broadcast --verify -vvvv
+# forge script script/HederaToken.s.sol:HederaTokenScript --rpc-url testnet --broadcast
