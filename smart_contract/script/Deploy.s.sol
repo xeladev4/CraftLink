@@ -58,11 +58,24 @@ contract DeployScript is Script {
 // DEPLOY COMMAND
 // forge script script/Deploy.s.sol:DeployScript --rpc-url testnet --broadcast --slow
 
-// VERIFY COMMAND
-// forge verify-contract $CONTRACT_ADDRESS src/HederaToken.sol:HederaToken \
+// # Replace with the contract address from the previous step
+// export CONTRACT_ADDRESS=<your-contract-address>
+
+// # Derive your public address from the private key
+// export MY_ADDRESS=$(cast wallet address $HEDERA_PRIVATE_KEY)
+
+// VERIFY COMMAND WITH CONSTRUCTOR ARGS
+// forge verify-contract 0x6182AfDA6817a0a78a5e87Da57DD19F05bfCa9cf src/ReviewSystem.sol:ReviewSystem \
 //     --chain-id 296 \
 //     --verifier sourcify \
 //     --verifier-url "https://server-verify.hashscan.io/" \
-//     --constructor-args $(cast abi-encode "constructor(address)" $MY_ADDRESS)
+//     --constructor-args $(cast abi-encode "constructor(address, address)" 0x3E7dfBF99f10402E860Df4e7420217EF56e94cc1 0x9c78Bbfc9a101f0C467560BD93401B72cC4152C1 0x78b06bfd164Ae7dee46E606da3e4d2Cb59997cD2)
 
+// VERIFY COMMAND WITHOUT CONSTRUCTOR ARGS
+// forge verify-contract $CONTRACT_ADDRESS src/HederaToken.sol:HederaToken \
+//     --chain-id 296 \
+//     --verifier sourcify \
+//     --verifier-url "https://server-verify.hashscan.io/"
+
+// Reference for Hedera + Foundry
 // https://docs.hedera.com/hedera/getting-started-evm-developers/deploy-a-smart-contract-with-foundry
