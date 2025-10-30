@@ -14,11 +14,7 @@ const app: Express = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://craftlink-hq.vercel.app",
-  "https://craftlink-alpha.vercel.app",
-  "https://craftlinkhq.com",
-  "https://www.craftlinkhq.com",
-  "https://embedded-wallet.thirdweb.com",
+  "https://craftlink-coral.vercel.app",
 ];
 app.use(
   cors({ origin: allowedOrigins, credentials: true }) //allowedHeaders: ["*"]
