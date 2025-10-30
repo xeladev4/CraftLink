@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../../src/v2/Registry.sol";
+import "../src/Registry.sol";
 
 contract RegistryTest is Test {
     Registry registry;
@@ -15,53 +15,41 @@ contract RegistryTest is Test {
     }
 
     function testRegisterAsArtisan() public {
-        vm.prank(user1);
-        registry.registerAsArtisan("ipfsHash1");
+        vm.prank(relayer);
+        registry.registerAsArtisanFor(user1, "ipfsHash1");
         assertTrue(registry.isArtisan(user1));
         (string memory ipfsHash,,) = registry.getArtisanDetails(user1);
         assertEq(ipfsHash, "ipfsHash1");
     }
 
     function testCannotRegisterAsArtisanTwice() public {
-        vm.startPrank(user1);
-        registry.registerAsArtisan("ipfsHash1");
+        vm.startPrank(relayer);
+        registry.registerAsArtisanFor(user1, "ipfsHash1");
         vm.expectRevert("User already registered as an artisan");
-        registry.registerAsArtisan("ipfsHash2");
+        registry.registerAsArtisanFor(user1, "ipfsHash2");
         vm.stopPrank();
     }
 
     function testRegisterAsClient() public {
-        vm.prank(user1);
-        registry.registerAsClient("ipfsHash1");
+        vm.prank(relayer);
+        registry.registerAsClientFor(user1, "ipfsHash1");
         assertTrue(registry.isClient(user1));
         (string memory ipfsHash,) = registry.getClientDetails(user1);
         assertEq(ipfsHash, "ipfsHash1");
     }
 
     function testCannotRegisterAsClientTwice() public {
-        vm.startPrank(user1);
-        registry.registerAsClient("ipfsHash1");
+        vm.startPrank(relayer);
+        registry.registerAsClientFor(user1, "ipfsHash1");
         vm.expectRevert("User already registered as a client");
-        registry.registerAsClient("ipfsHash2");
+        registry.registerAsClientFor(user1, "ipfsHash2");
         vm.stopPrank();
     }
 
-    function testRelayerRegisterForArtisan() public {
-        vm.prank(relayer);
-        registry.registerAsArtisanFor(user2, "ipfsHash2");
-        assertTrue(registry.isArtisan(user2));
-    }
-
-    function testRelayerRegisterForClient() public {
-        vm.prank(relayer);
-        registry.registerAsClientFor(user2, "ipfsHash2");
-        assertTrue(registry.isClient(user2));
-    }
-
     function testRegisterAsArtisanThenClient() public {
-        vm.startPrank(user1);
-        registry.registerAsArtisan("ipfsHash1");
-        registry.registerAsClient("ipfsHash2");
+        vm.startPrank(relayer);
+        registry.registerAsArtisanFor(user1, "ipfsHash1");
+        registry.registerAsClientFor(user1, "ipfsHash2");
         vm.stopPrank();
 
         assertTrue(registry.isArtisan(user1));
@@ -75,9 +63,9 @@ contract RegistryTest is Test {
     }
 
     function testRegisterAsClientThenArtisan() public {
-        vm.startPrank(user1);
-        registry.registerAsClient("ipfsHash1");
-        registry.registerAsArtisan("ipfsHash2");
+        vm.startPrank(relayer);
+        registry.registerAsClientFor(user1, "ipfsHash1");
+        registry.registerAsArtisanFor(user1, "ipfsHash2");
         vm.stopPrank();
 
         assertTrue(registry.isArtisan(user1));
@@ -90,53 +78,21 @@ contract RegistryTest is Test {
         assertEq(clientIpfsHash, "ipfsHash1");
     }
 
-    function testRelayerRegisterArtisanThenClient() public {
-        vm.prank(relayer);
-        registry.registerAsArtisanFor(user1, "ipfsHash1");
-        vm.prank(relayer);
-        registry.registerAsClientFor(user1, "ipfsHash2");
-
-        assertTrue(registry.isArtisan(user1));
-        assertTrue(registry.isClient(user1));
-
-        (string memory artisanIpfsHash,,) = registry.getArtisanDetails(user1);
-        (string memory clientIpfsHash,) = registry.getClientDetails(user1);
-
-        assertEq(artisanIpfsHash, "ipfsHash1");
-        assertEq(clientIpfsHash, "ipfsHash2");
-    }
-
-    function testRelayerRegisterClientThenArtisan() public {
-        vm.prank(relayer);
-        registry.registerAsClientFor(user1, "ipfsHash1");
-        vm.prank(relayer);
-        registry.registerAsArtisanFor(user1, "ipfsHash2");
-
-        assertTrue(registry.isArtisan(user1));
-        assertTrue(registry.isClient(user1));
-
-        (string memory artisanIpfsHash,,) = registry.getArtisanDetails(user1);
-        (string memory clientIpfsHash,) = registry.getClientDetails(user1);
-
-        assertEq(artisanIpfsHash, "ipfsHash2");
-        assertEq(clientIpfsHash, "ipfsHash1");
-    }
-
     function testGetArtisanCount() public {
-        vm.prank(user1);
-        registry.registerAsArtisan("ipfsHash1");
-        vm.prank(user2);
-        registry.registerAsArtisan("ipfsHash2");
+        vm.startPrank(relayer);
+        registry.registerAsArtisanFor(user1, "ipfsHash1");
+        registry.registerAsArtisanFor(user2, "ipfsHash2");
+        vm.stopPrank();
 
         uint256 count = registry.getArtisanCount();
         assertEq(count, 2);
     }
 
-    function testClientCount() public {
-        vm.prank(user1);
-        registry.registerAsClient("ipfsHash1");
-        vm.prank(user2);
-        registry.registerAsClient("ipfsHash2");
+    function testGetClientCount() public {
+        vm.startPrank(relayer);
+        registry.registerAsClientFor(user1, "ipfsHash1");
+        registry.registerAsClientFor(user2, "ipfsHash2");
+        vm.stopPrank();
 
         uint256 count = registry.getClientCount();
         assertEq(count, 2);
@@ -146,5 +102,29 @@ contract RegistryTest is Test {
         vm.prank(user1);
         vm.expectRevert("Caller is not the relayer");
         registry.registerAsArtisanFor(user2, "ipfsHash2");
+    }
+
+    function testGetAllArtisanAddresses() public {
+        vm.startPrank(relayer);
+        registry.registerAsArtisanFor(user1, "ipfsHash1");
+        registry.registerAsArtisanFor(user2, "ipfsHash2");
+        vm.stopPrank();
+
+        address[] memory artisanAddresses = registry.getAllArtisans();
+        assertEq(artisanAddresses.length, 2);
+        assertEq(artisanAddresses[0], user1);
+        assertEq(artisanAddresses[1], user2);
+    }
+
+    function testGetAllClientAddresses() public {
+        vm.startPrank(relayer);
+        registry.registerAsClientFor(user1, "ipfsHash1");
+        registry.registerAsClientFor(user2, "ipfsHash2");
+        vm.stopPrank();
+
+        address[] memory clientAddresses = registry.getAllClients();
+        assertEq(clientAddresses.length, 2);
+        assertEq(clientAddresses[0], user1);
+        assertEq(clientAddresses[1], user2);
     }
 }

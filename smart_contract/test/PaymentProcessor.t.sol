@@ -2,8 +2,8 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../../src/v3/PaymentProcessor.sol";
-import "../../src/v3/Token.sol";
+import "../src/PaymentProcessor.sol";
+import "../src/Token.sol";
 
 contract PaymentProcessorTest is Test {
     Token token;

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../../src/v3/CraftCoin.sol";
-import "../../src/v3/Registry.sol";
+import "../src/CraftCoin.sol";
+import "../src/Registry.sol";
 
 contract CraftCoinTest is Test {
     Registry registry;

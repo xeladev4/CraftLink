@@ -13,7 +13,7 @@ import {CraftCoin} from "../src/CraftCoin.sol";
 
 contract DeployScript is Script {
     function run() external {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        uint256 deployerPrivateKey = vm.envUint("HEDERA_PRIVATE_KEY");
         require(deployerPrivateKey != 0, "Deployer private key is not set");
 
         address relayer = vm.addr(deployerPrivateKey);
