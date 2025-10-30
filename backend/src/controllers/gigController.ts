@@ -6,10 +6,6 @@ import { IGig, GigCreationRequest, ConfirmGigRequest } from '../types/index.js';
 import { readOnlyProvider } from '../constants/providers.js';
 import { getGigContract } from '../constants/contracts.js';
 
-// A readWriteProvider TO BE USED IN PLACE OF readOnlyProvider
-// import { getProvider } from '../constants/providers.js';
-// import { useAppKitProvider, type Provider } from "@reown/appkit/react";
-
 export const stageGig = async (req: GigCreationRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const {

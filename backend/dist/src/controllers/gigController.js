@@ -3,9 +3,6 @@ import { generateId } from '../utils/idGenerator.js';
 import { createMerkleTree, deserializeProof, getProof, serializeProof, verifyMerkleProof } from '../utils/merkleTreeUtils.js';
 import { readOnlyProvider } from '../constants/providers.js';
 import { getGigContract } from '../constants/contracts.js';
-// A readWriteProvider TO BE USED IN PLACE OF readOnlyProvider
-// import { getProvider } from '../constants/providers.js';
-// import { useAppKitProvider, type Provider } from "@reown/appkit/react";
 export const stageGig = async (req, res, next) => {
     try {
         const { clientAddress, title, skillCategory, preferredLocation, experienceLevel, projectDescription, contextLink, files, additionalProjectInfo, projectDuration, price, } = req.body;
