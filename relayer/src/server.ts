@@ -18,11 +18,7 @@ const port = process.env.PORT || 3005;
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://craftlink-hq.vercel.app",
-  "https://craftlink-alpha.vercel.app",
-  "https://craftlinkhq.com",
-  "https://www.craftlinkhq.com",
-  "https://embedded-wallet.thirdweb.com",
+  "https://craftlink-coral.vercel.app",
 ];
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json({ limit: '50mb' }));
