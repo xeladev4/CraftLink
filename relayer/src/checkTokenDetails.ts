@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 async function checkTokenDetails() {
-  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
   const token = new ethers.Contract(
     process.env.TOKEN_ADDRESS!,
     [

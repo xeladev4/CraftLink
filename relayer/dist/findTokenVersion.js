@@ -47,7 +47,7 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 function findTokenVersion() {
     return __awaiter(this, void 0, void 0, function* () {
-        const provider = new ethers_1.ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+        const provider = new ethers_1.ethers.JsonRpcProvider(process.env.RPC_URL);
         const token = new ethers_1.ethers.Contract(process.env.TOKEN_ADDRESS, [
             "function name() view returns (string)",
             "function DOMAIN_SEPARATOR() view returns (bytes32)",

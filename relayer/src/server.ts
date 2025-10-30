@@ -43,7 +43,7 @@ const nonceLocks: { [user: string]: boolean } = {};
 
 function validateEnv() {
     const requiredVars = [
-        'RPC_URL_LISK', 'PRIVATE_KEY_PASSWORD', 'ENCRYPTED_KEY_JSON',
+        'RPC_URL', 'PRIVATE_KEY_PASSWORD', 'ENCRYPTED_KEY_JSON',
         'TOKEN_ADDRESS', 'REGISTRY_ADDRESS', 'REVIEW_SYSTEM_ADDRESS',
         'GIG_MARKETPLACE_ADDRESS', 'PAYMENT_PROCESSOR_ADDRESS', 'CRAFT_COIN_ADDRESS'
     ];
@@ -57,7 +57,7 @@ async function getSigner() {
     validateEnv();
     const encryptedJsonKey = process.env.ENCRYPTED_KEY_JSON!;
     const wallet = await ethers.Wallet.fromEncryptedJson(encryptedJsonKey, process.env.PRIVATE_KEY_PASSWORD!);
-    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
     return wallet.connect(provider);
 }
 

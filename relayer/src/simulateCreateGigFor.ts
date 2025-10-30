@@ -9,7 +9,7 @@ function validateEnv() {
   const requiredVars = [
     "USER_PRIVATE_KEY",
     "USER_ADDRESS",
-    "RPC_URL_LISK",
+    "RPC_URL",
     "ENCRYPTED_KEY_JSON",
     "PRIVATE_KEY_PASSWORD",
     "TOKEN_ADDRESS",
@@ -29,7 +29,7 @@ async function getSigner() {
     encryptedJsonKey,
     process.env.PRIVATE_KEY_PASSWORD!
   );
-  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
   return wallet.connect(provider);
 }
 
@@ -124,7 +124,7 @@ async function simulateCreateGigFor() {
   validateEnv();
 
   const userAddress = process.env.USER_ADDRESS!;
-  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
   const userPrivateKey = process.env.USER_PRIVATE_KEY!;
   const tokenAddress = process.env.TOKEN_ADDRESS!;
   const paymentProcessorAddress = process.env.PAYMENT_PROCESSOR_ADDRESS!;

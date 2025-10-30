@@ -59,7 +59,14 @@ const craftCoinAbi_json_1 = __importDefault(require("./abi/craftCoinAbi.json"));
 dotenv.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3005;
-const allowedOrigins = ["http://localhost:3000", "https://craftlink-hq.vercel.app", "https://craftlink-alpha.vercel.app", "https://craftlinkhq.com", "https://www.craftlinkhq.com"];
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://craftlink-hq.vercel.app",
+    "https://craftlink-alpha.vercel.app",
+    "https://craftlinkhq.com",
+    "https://www.craftlinkhq.com",
+    "https://embedded-wallet.thirdweb.com",
+];
 app.use((0, cors_1.default)({ origin: allowedOrigins, credentials: true }));
 app.use(express_1.default.json({ limit: '50mb' }));
 app.use(express_1.default.urlencoded({ limit: '50mb', extended: true }));
@@ -69,7 +76,7 @@ const nonceTracker = {};
 const nonceLocks = {};
 function validateEnv() {
     const requiredVars = [
-        'RPC_URL_LISK', 'PRIVATE_KEY_PASSWORD', 'ENCRYPTED_KEY_JSON',
+        'RPC_URL', 'PRIVATE_KEY_PASSWORD', 'ENCRYPTED_KEY_JSON',
         'TOKEN_ADDRESS', 'REGISTRY_ADDRESS', 'REVIEW_SYSTEM_ADDRESS',
         'GIG_MARKETPLACE_ADDRESS', 'PAYMENT_PROCESSOR_ADDRESS', 'CRAFT_COIN_ADDRESS'
     ];
@@ -83,7 +90,7 @@ function getSigner() {
         validateEnv();
         const encryptedJsonKey = process.env.ENCRYPTED_KEY_JSON;
         const wallet = yield ethers_1.ethers.Wallet.fromEncryptedJson(encryptedJsonKey, process.env.PRIVATE_KEY_PASSWORD);
-        const provider = new ethers_1.ethers.JsonRpcProvider(process.env.RPC_URL_LISK);
+        const provider = new ethers_1.ethers.JsonRpcProvider(process.env.RPC_URL);
         return wallet.connect(provider);
     });
 }
