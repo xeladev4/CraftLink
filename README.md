@@ -97,7 +97,7 @@ CraftLink uses a **hybrid architecture** combining on-chain and off-chain compon
              ▼                           ▼
     ┌─────────────────┐         ┌─────────────────┐
     │    MongoDB      │         │  Smart Contracts│
-    │  (Off-chain DB) │         │   (Base Sepolia)│
+    │  (Off-chain DB) │         │ (Hedera Testnet)│
     └─────────────────┘         └─────────────────┘
              │                           │
              └───────────┬───────────────┘
@@ -126,7 +126,7 @@ CraftLink uses a **hybrid architecture** combining on-chain and off-chain compon
 |-----------|-----------|---------|
 | Smart Contracts | Solidity 0.8.20 | Core business logic |
 | Development Framework | Foundry | Testing & deployment |
-| Network | Base Sepolia | Testnet deployment |
+| Network | Hedera Testnet | Testnet deployment |
 | Token Standards | ERC-20 | USDT mock & CraftCoin |
 
 ### **Backend Services**
@@ -226,7 +226,7 @@ CraftLink/
 #### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/yourusername/CraftLink.git
+git clone https://github.com/xeladev4/CraftLink/
 cd CraftLink
 ```
 
@@ -254,9 +254,9 @@ forge script script/Deploy.s.sol --rpc-url $RPC_URL --broadcast
 
 **Environment Variables** (create `.env`):
 ```env
-RPC_URL=https://sepolia.base.org
+RPC_URL=https://testnet.hashio.io/api
 PRIVATE_KEY=your_private_key_here
-ETHERSCAN_API_KEY=your_etherscan_api_key
+ETHERSCAN_API_KEY=your_block_explorer_api_key
 ```
 
 #### **3. Backend Setup**
@@ -302,15 +302,15 @@ npm run dev
 **Environment Variables** (`.env`):
 ```env
 PORT=3005
-RPC_URL=https://sepolia.base.org
+RPC_URL=https://testnet.hashio.io/api
 PRIVATE_KEY_PASSWORD=your_secure_password
 ENCRYPTED_KEY_JSON={"encrypted":"..."}
-TOKEN_ADDRESS=0x...
-REGISTRY_ADDRESS=0x...
-REVIEW_SYSTEM_ADDRESS=0x...
-GIG_MARKETPLACE_ADDRESS=0x...
-PAYMENT_PROCESSOR_ADDRESS=0x...
-CRAFT_COIN_ADDRESS=0x...
+TOKEN_ADDRESS=0xd1fb7489D8689c45082Ea68dC025247d4143f15E
+REGISTRY_ADDRESS=0x9c78Bbfc9a101f0C467560BD93401B72cC4152C1
+REVIEW_SYSTEM_ADDRESS=0x6182AfDA6817a0a78a5e87Da57DD19F05bfCa9cf
+GIG_MARKETPLACE_ADDRESS=0x78b06bfd164Ae7dee46E606da3e4d2Cb59997cD2
+PAYMENT_PROCESSOR_ADDRESS=0x6976762d8dF143771eB8a2a930061A57806b6fd4
+CRAFT_COIN_ADDRESS=0x77A5a2b9DCbe2B3e14057F6774D050C5f0f66336
 ```
 
 #### **5. Frontend Setup**
@@ -332,8 +332,8 @@ npm run dev
 ```env
 NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
 NEXT_PUBLIC_RELAYER_URL=http://localhost:3005
-NEXT_PUBLIC_RPC_URL=https://sepolia.base.org
-NEXT_PUBLIC_CHAIN_ID=84532
+NEXT_PUBLIC_RPC_URL=https://testnet.hashio.io/api
+NEXT_PUBLIC_CHAIN_ID=296
 THIRDWEB_CLIENT_ID=your_thirdweb_client_id
 THIRDWEB_SECRET_KEY=your_thirdweb_secret_key
 ```
@@ -348,17 +348,19 @@ THIRDWEB_SECRET_KEY=your_thirdweb_secret_key
 
 ## 📜 Smart Contracts
 
-### **Deployed Contracts (Base Sepolia)**
+### **Deployed Contracts (Hedera Testnet)**
 
 | Contract | Address | Purpose |
 |----------|---------|---------|
-| Registry | `0x67E74d74c2f76e9D790fF0A3c90FA10d480a5ABA` | User registration |
-| Token (USDT) | `0x41aD8D756C1127eE0B70F5D51279447b59e5E56F` | Payment token |
-| CraftCoin (CFT) | `0xEd5aFfeeD202118540268d5c9EECe65aCa151752` | Platform token |
-| PaymentProcessor | `0x58109402f66a29EE0C677258eAd2f2c37774f568` | Escrow system |
-| GigMarketplace | `0x664EaD8be84e632652dD14d391416f2634E50f68` | Gig management |
-| ReviewSystem | `0x8876880a8A7BBE4923eB97EAd0A0a467Bf58B4eE` | Rating system |
-| ChatSystem | `0x144af7E22edcFb35C75cf9B3A28C9B9AF584069E` | Message verification |
+| Registry | `0x9c78Bbfc9a101f0C467560BD93401B72cC4152C1` | User registration |
+| Token (USDT) | `0xd1fb7489D8689c45082Ea68dC025247d4143f15E` | Payment token |
+| CraftCoin (CFT) | `0x77A5a2b9DCbe2B3e14057F6774D050C5f0f66336` | Platform token |
+| PaymentProcessor | `0x6976762d8dF143771eB8a2a930061A57806b6fd4` | Escrow system |
+| GigMarketplace | `0x78b06bfd164Ae7dee46E606da3e4d2Cb59997cD2` | Gig management |
+| ReviewSystem | `0x6182AfDA6817a0a78a5e87Da57DD19F05bfCa9cf` | Rating system |
+| ChatSystem | `0x580C07f608C12563440086FF025E4c7aC7F2BcA7` | Message verification |
+
+**Block Explorer**: [HashScan Testnet](https://hashscan.io/testnet)
 
 ### **Contract Architecture**
 
@@ -457,9 +459,9 @@ CraftLink uses Merkle trees to ensure data integrity:
 
 ### **Smart Contracts**
 ```env
-RPC_URL=                    # Blockchain RPC endpoint
-PRIVATE_KEY=                # Deployer private key
-ETHERSCAN_API_KEY=          # For contract verification
+RPC_URL=https://testnet.hashio.io/api    # Hedera Testnet RPC endpoint
+PRIVATE_KEY=                              # Deployer private key
+ETHERSCAN_API_KEY=                        # For contract verification (if supported)
 ```
 
 ### **Backend**
@@ -472,25 +474,25 @@ NODE_ENV=development
 ### **Relayer**
 ```env
 PORT=3005
-RPC_URL=                    # Blockchain RPC endpoint
-PRIVATE_KEY_PASSWORD=       # Password for encrypted key
-ENCRYPTED_KEY_JSON=         # Encrypted relayer private key
-TOKEN_ADDRESS=              # USDT contract address
-REGISTRY_ADDRESS=           # Registry contract address
-REVIEW_SYSTEM_ADDRESS=      # ReviewSystem contract address
-GIG_MARKETPLACE_ADDRESS=    # GigMarketplace contract address
-PAYMENT_PROCESSOR_ADDRESS=  # PaymentProcessor contract address
-CRAFT_COIN_ADDRESS=         # CraftCoin contract address
+RPC_URL=https://testnet.hashio.io/api    # Hedera Testnet RPC endpoint
+PRIVATE_KEY_PASSWORD=                     # Password for encrypted key
+ENCRYPTED_KEY_JSON=                       # Encrypted relayer private key
+TOKEN_ADDRESS=0xd1fb7489D8689c45082Ea68dC025247d4143f15E
+REGISTRY_ADDRESS=0x9c78Bbfc9a101f0C467560BD93401B72cC4152C1
+REVIEW_SYSTEM_ADDRESS=0x6182AfDA6817a0a78a5e87Da57DD19F05bfCa9cf
+GIG_MARKETPLACE_ADDRESS=0x78b06bfd164Ae7dee46E606da3e4d2Cb59997cD2
+PAYMENT_PROCESSOR_ADDRESS=0x6976762d8dF143771eB8a2a930061A57806b6fd4
+CRAFT_COIN_ADDRESS=0x77A5a2b9DCbe2B3e14057F6774D050C5f0f66336
 ```
 
 ### **Frontend**
 ```env
-NEXT_PUBLIC_BACKEND_URL=    # Backend API URL
-NEXT_PUBLIC_RELAYER_URL=    # Relayer API URL
-NEXT_PUBLIC_RPC_URL=        # Blockchain RPC endpoint
-NEXT_PUBLIC_CHAIN_ID=       # Network chain ID (84532 for Base Sepolia)
-THIRDWEB_CLIENT_ID=         # Thirdweb client ID
-THIRDWEB_SECRET_KEY=        # Thirdweb secret key
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3001    # Backend API URL
+NEXT_PUBLIC_RELAYER_URL=http://localhost:3005    # Relayer API URL
+NEXT_PUBLIC_RPC_URL=https://testnet.hashio.io/api    # Hedera Testnet RPC endpoint
+NEXT_PUBLIC_CHAIN_ID=296                          # Network chain ID (296 for Hedera Testnet)
+THIRDWEB_CLIENT_ID=                               # Thirdweb client ID
+THIRDWEB_SECRET_KEY=                              # Thirdweb secret key
 ```
 
 ---
@@ -502,16 +504,15 @@ THIRDWEB_SECRET_KEY=        # Thirdweb secret key
 ```bash
 cd smart_contract
 
-# Deploy to Base Sepolia
+# Deploy to Hedera Testnet
 forge script script/Deploy.s.sol \
-  --rpc-url https://sepolia.base.org \
+  --rpc-url https://testnet.hashio.io/api \
   --broadcast \
   --verify
 
-# Verify contracts on BaseScan
-forge verify-contract <CONTRACT_ADDRESS> <CONTRACT_NAME> \
-  --chain-id 84532 \
-  --etherscan-api-key $BASESCAN_API_KEY
+# Verify contracts on HashScan
+# Note: Contract verification on Hedera uses HashScan
+# Visit https://hashscan.io/testnet to view deployed contracts
 ```
 
 ### **Backend & Relayer**
@@ -601,7 +602,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Foundry** - Fast Solidity development framework
 - **Thirdweb** - Wallet connection infrastructure
 - **Vercel** - Hosting platform
-- **Base** - Layer 2 blockchain network
+- **Hedera** - Enterprise-grade distributed ledger network
 
 ---
 
