@@ -52,7 +52,7 @@ const HeroSection = ({
             <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#F9F1E2] leading-tight">
               {headline}
             </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {description}
             </p>
             {buttonText && (
