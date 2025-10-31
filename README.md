@@ -10,7 +10,8 @@ CraftLink is a decentralized marketplace that bridges the gap between skilled ar
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
 ---
-
+Hedera Certificate Link : https://drive.google.com/file/d/1Ki2Q-0h-M8qoAsL5REH_kIM5AaD6YhTc/view?usp=drivesdk
+Pitch Deck Link: https://gamma.app/docs/CraftLink-wrpqpq1ykrbe7yo?mode=doc
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
